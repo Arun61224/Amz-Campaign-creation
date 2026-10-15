@@ -68,7 +68,7 @@ export function generateAmazonBulkCsv(
       const campName = `${strategy.campaignPrefix}_AUTO_${designId}`;
       // Clean Ad Group ID derived directly from the primary SKU without weird symbols
       const agName = deriveAdGroupNameFromSku(skus[0].sku);
-      const dailyBudgetStr = (skus[0].dailyBudget || strategy.dailyBudget).toFixed(2);
+      const dailyBudgetStr = strategy.dailyBudget.toFixed(2);
 
       // Campaign Row
       rows.push([
