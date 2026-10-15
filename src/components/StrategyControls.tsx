@@ -21,7 +21,7 @@ export const StrategyControls: React.FC<StrategyControlsProps> = ({
   availableProductGroups,
   isDark = false,
 }) => {
-  const updateSetting = <K extends keyof StrategySettings,>(
+  const updateSetting = <K extends keyof StrategySettings>(
     key: K,
     value: StrategySettings[K]
   ) => {
@@ -174,10 +174,10 @@ export const StrategyControls: React.FC<StrategyControlsProps> = ({
                 step="0.50"
                 min="0.05"
                 value={settings.adGroupDefaultBid}
-                onChange={(e) => updateSetting(
-                  'adGroupDefaultBid',
-                  Math.max(0.05, parseFloat(e.target.value) || 0.05)
-                )}
+                onChange={(e) => {
+                  const value = Number.parseFloat(e.target.value);
+                  updateSetting('adGroupDefaultBid', Number.isFinite(value) && value >= 0.05 ? value : 0.05);
+                }}
                 className={`w-full px-2.5 py-1.5 text-xs rounded-lg font-mono font-bold border transition-colors ${
                   isDark
                     ? 'bg-slate-950 border-slate-700 text-slate-100'
