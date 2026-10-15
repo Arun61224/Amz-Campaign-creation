@@ -34,6 +34,7 @@ export async function downloadExcelTemplate(): Promise<void> {
     { header: 'Character', key: 'character', width: 26 },
     { header: 'Audience', key: 'audience', width: 16 },
     { header: 'ASIN', key: 'asin', width: 16 },
+    { header: 'Ad_Group_Default_Bid', key: 'ad_group_default_bid', width: 22 },
   ];
 
   // Style Header Row
@@ -61,6 +62,7 @@ export async function downloadExcelTemplate(): Promise<void> {
       character: 'Spider-Man',
       audience: 'Boys',
       asin: 'B0CXYZSP501',
+      ad_group_default_bid: null, // Optional; blank uses dashboard value
     },
     {
       sku: 'DKUC-SSET-502--3-4 years',
@@ -74,6 +76,7 @@ export async function downloadExcelTemplate(): Promise<void> {
       character: 'Mickey Mouse',
       audience: 'Boys',
       asin: 'B0CXYZMK502',
+      ad_group_default_bid: null, // Optional; blank uses dashboard value
     },
     {
       sku: 'DKUC-HOD-242--13 to 14Years',
@@ -87,6 +90,7 @@ export async function downloadExcelTemplate(): Promise<void> {
       character: 'Iron Man',
       audience: 'Boys',
       asin: 'B0CHXYZ1314',
+      ad_group_default_bid: null, // Optional; blank uses dashboard value
     },
     {
       sku: 'DKUC-SWTR-301--5-6 years',
@@ -100,6 +104,7 @@ export async function downloadExcelTemplate(): Promise<void> {
       character: 'None',
       audience: 'Girls',
       asin: 'B0CSWTR301',
+      ad_group_default_bid: null, // Optional; blank uses dashboard value
     },
     {
       sku: 'DKUC-CRG-168--6-7 years',
@@ -113,6 +118,7 @@ export async function downloadExcelTemplate(): Promise<void> {
       character: 'None',
       audience: 'Boys',
       asin: 'B0CCRG168',
+      ad_group_default_bid: null, // Optional; blank uses dashboard value
     },
     {
       sku: 'DKUC-VLVT-801--2-3 years',
@@ -126,6 +132,7 @@ export async function downloadExcelTemplate(): Promise<void> {
       character: 'Frozen / Elsa',
       audience: 'Girls',
       asin: 'B0CVLVT801',
+      ad_group_default_bid: null, // Optional; blank uses dashboard value
     },
     {
       sku: 'DKUC-VTP-802--3-4 years',
@@ -139,6 +146,7 @@ export async function downloadExcelTemplate(): Promise<void> {
       character: 'Spider-Man',
       audience: 'Boys',
       asin: 'B0CVTP802',
+      ad_group_default_bid: null, // Optional; blank uses dashboard value
     },
     {
       sku: 'DKUC-VZH-803--5-6 years',
@@ -152,6 +160,7 @@ export async function downloadExcelTemplate(): Promise<void> {
       character: 'None',
       audience: 'Boys',
       asin: 'B0CVZH803',
+      ad_group_default_bid: null, // Optional; blank uses dashboard value
     },
     {
       sku: 'DKUC-VHP-804--4-5 years',
@@ -165,6 +174,7 @@ export async function downloadExcelTemplate(): Promise<void> {
       character: 'Mickey Mouse',
       audience: 'Boys',
       asin: 'B0CVHP804',
+      ad_group_default_bid: null, // Optional; blank uses dashboard value
     },
     {
       sku: 'DKUC-ROMP-112--6-12 months',
@@ -178,6 +188,7 @@ export async function downloadExcelTemplate(): Promise<void> {
       character: 'None',
       audience: 'Unisex Baby',
       asin: 'B0CROMP112',
+      ad_group_default_bid: null, // Optional; blank uses dashboard value
     },
   ];
 
@@ -302,6 +313,11 @@ export async function downloadExcelTemplate(): Promise<void> {
     desc: 'Default CPC bid in INR (₹) for auto targets or keyword match types.',
   });
   infoWs.addRow({
+    setting: 'Ad_Group_Default_Bid',
+    values: 'Optional number in INR ₹ (e.g. 7.50); leave blank to use dashboard value',
+    desc: 'Optional per-SKU override for the Ad Group Default Bid. The dashboard Ad Group Default Bid is used when this column is blank. Exported Ad Group rows use the selected value.',
+  });
+  infoWs.addRow({
     setting: 'Ad Group ID Derivation',
     values: 'Automatic Clean Extraction',
     desc: 'Prefixes like DKUC- or D- are stripped cleanly to match Amazon SKU structure (e.g. BSUT-168--18-24 months). No weird symbols.',
@@ -326,18 +342,17 @@ export async function downloadExcelTemplate(): Promise<void> {
  * Downloads standard CSV template with Season, Franchise, Character, and Product_Type columns.
  */
 export function downloadCsvTemplate(): void {
-  const sampleCsv = `SKU,Campaign_Type,Daily_Budget,Default_Bid,Brand,Product_Type,Season,Franchise_Collab,Character,Audience,ASIN
-DKUC-TPSET-501--4-5 years,BOTH,500.00,15.00,KUCHIPOO,T-Shirts and Pyjamas Set,All Season,Marvel,Spider-Man,Boys,B0CXYZSP501
-DKUC-SSET-502--3-4 years,BOTH,500.00,14.00,KUCHIPOO,Shorts Set,Summer,Disney,Mickey Mouse,Boys,B0CXYZMK502
-DKUC-HOD-242--13 to 14Years,BOTH,500.00,15.00,KUCHIPOO,Hoddies,Winter,Marvel,Iron Man,Boys,B0CHXYZ1314
-DKUC-SWTR-301--5-6 years,BOTH,500.00,15.00,KUCHIPOO,Sweaters,Winter,None (Only Kuchipoo),None,Girls,B0CSWTR301
-DKUC-CRG-168--6-7 years,BOTH,500.00,14.00,KUCHIPOO,Cargo Pants,All Season,None (Only Kuchipoo),None,Boys,B0CCRG168
-DKUC-VLVT-801--2-3 years,BOTH,500.00,16.00,KUCHIPOO,Velvet clothing Set,Winter,Disney,Frozen / Elsa,Girls,B0CVLVT801
-DKUC-VTP-802--3-4 years,BOTH,500.00,16.00,KUCHIPOO,Velvet T-Shirts and Pyjamas Set,Winter,Marvel,Spider-Man,Boys,B0CVTP802
-DKUC-VZH-803--5-6 years,BOTH,500.00,17.00,KUCHIPOO,Velve ZIP HODDIE AND PYJAMAS set,Winter,None (Only Kuchipoo),None,Boys,B0CVZH803
-DKUC-VHP-804--4-5 years,BOTH,500.00,16.00,KUCHIPOO,Velvel HODDE AND PYJAMAS,Winter,Disney,Mickey Mouse,Boys,B0CVHP804
-DKUC-ROMP-112--6-12 months,BOTH,500.00,12.00,KUCHIPOO,Rompers,Summer,None (Only Kuchipoo),None,Unisex Baby,B0CROMP112
-`;
+  const sampleCsv = `SKU,Campaign_Type,Daily_Budget,Default_Bid,Brand,Product_Type,Season,Franchise_Collab,Character,Audience,ASIN,Ad_Group_Default_Bid
+DKUC-TPSET-501--4-5 years,BOTH,500.00,15.00,KUCHIPOO,T-Shirts and Pyjamas Set,All Season,Marvel,Spider-Man,Boys,B0CXYZSP501,
+DKUC-SSET-502--3-4 years,BOTH,500.00,14.00,KUCHIPOO,Shorts Set,Summer,Disney,Mickey Mouse,Boys,B0CXYZMK502,
+DKUC-HOD-242--13 to 14Years,BOTH,500.00,15.00,KUCHIPOO,Hoddies,Winter,Marvel,Iron Man,Boys,B0CHXYZ1314,
+DKUC-SWTR-301--5-6 years,BOTH,500.00,15.00,KUCHIPOO,Sweaters,Winter,None (Only Kuchipoo),None,Girls,B0CSWTR301,
+DKUC-CRG-168--6-7 years,BOTH,500.00,14.00,KUCHIPOO,Cargo Pants,All Season,None (Only Kuchipoo),None,Boys,B0CCRG168,
+DKUC-VLVT-801--2-3 years,BOTH,500.00,16.00,KUCHIPOO,Velvet clothing Set,Winter,Disney,Frozen / Elsa,Girls,B0CVLVT801,
+DKUC-VTP-802--3-4 years,BOTH,500.00,16.00,KUCHIPOO,Velvet T-Shirts and Pyjamas Set,Winter,Marvel,Spider-Man,Boys,B0CVTP802,
+DKUC-VZH-803--5-6 years,BOTH,500.00,17.00,KUCHIPOO,Velve ZIP HODDIE AND PYJAMAS set,Winter,None (Only Kuchipoo),None,Boys,B0CVZH803,
+DKUC-VHP-804--4-5 years,BOTH,500.00,16.00,KUCHIPOO,Velvel HODDE AND PYJAMAS,Winter,Disney,Mickey Mouse,Boys,B0CVHP804,
+DKUC-ROMP-112--6-12 months,BOTH,500.00,12.00,KUCHIPOO,Rompers,Summer,None (Only Kuchipoo),None,Unisex Baby,B0CROMP112,`;
   downloadBlob(sampleCsv, 'amazon_sku_campaign_template_inr.csv', 'text/csv;charset=utf-8;');
 }
 
