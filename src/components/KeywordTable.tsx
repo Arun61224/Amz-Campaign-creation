@@ -39,7 +39,7 @@ export const KeywordTable: React.FC<KeywordTableProps> = ({
   onOpenGoogleTrends,
   isDark = false,
 }) => {
-  const [activeTab, setActiveTab] = useState<KeywordCategory | 'ALL'>('SIZE_SPECIFIC');
+  const [activeTab, setActiveTab] = useState<KeywordCategory | 'ALL'>('ALL');
   const [searchQuery, setSearchQuery] = useState('');
   const [matchTypeFilter, setMatchTypeFilter] = useState<'ALL' | MatchType>('ALL');
   const [statusFilter, setStatusFilter] = useState<'ALL' | ApprovalStatus>('ALL');
