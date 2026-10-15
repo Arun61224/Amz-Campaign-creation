@@ -142,6 +142,7 @@ export interface StrategySettings {
   // Campaign Mode: Auto, Manual, or Both Dual Strategy
   campaignMode: CampaignMode;
   dailyBudget: number; // In INR (₹), default ₹500.00
+  adGroupDefaultBid: number; // Shared Ad Group Default Bid in INR (₹)
   biddingStrategy: 'Dynamic bids - down only' | 'Dynamic bids - up and down' | 'Fixed bids';
   
   // Auto Campaign Default Bids (INR ₹)
