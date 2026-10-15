@@ -74,7 +74,6 @@ export const Header: React.FC<HeaderProps> = ({
                 </span>
               </div>
               <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                Size-Specific SKU Extraction • Ad Group Collision Guard • Google Trends Explorer
               </p>
             </div>
           </div>
