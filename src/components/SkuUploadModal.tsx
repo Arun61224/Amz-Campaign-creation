@@ -120,6 +120,7 @@ export const SkuUploadModal: React.FC<SkuUploadModalProps> = ({
     let campIdx = -1;
     let budgetIdx = -1;
     let bidIdx = -1;
+    let adGroupBidIdx = -1;
     let brandIdx = -1;
     let typeIdx = -1;
     let seasonIdx = -1;
@@ -134,7 +135,8 @@ export const SkuUploadModal: React.FC<SkuUploadModalProps> = ({
         if (col === 'sku' || col === 'sellersku' || col.includes('sku')) skuIdx = idx;
         else if (col.includes('campaign') || col.includes('type_campaign')) campIdx = idx;
         else if (col.includes('budget')) budgetIdx = idx;
-        else if (col.includes('bid')) bidIdx = idx;
+        else if (col.includes('ad_group_default_bid') || col.includes('ad group default bid') || col.includes('adgroupdefaultbid')) adGroupBidIdx = idx;
+        else if (col === 'default_bid' || col === 'default bid' || col === 'bid') bidIdx = idx;
         else if (col.includes('brand')) brandIdx = idx;
         else if (col.includes('season') || col.includes('weather') || col.includes('mausam')) seasonIdx = idx;
         else if (col.includes('franchise') || col.includes('collab') || col.includes('license') || col.includes('universe')) franchiseIdx = idx;
@@ -221,6 +223,10 @@ export const SkuUploadModal: React.FC<SkuUploadModalProps> = ({
       let audience: ProductSKU['audience'] = 'Kids';
       let currentAsin = asinIdx >= 0 && cols[asinIdx] ? cols[asinIdx] : undefined;
       let dailyBudget = budgetIdx >= 0 && !isNaN(parseFloat(cols[budgetIdx])) ? parseFloat(cols[budgetIdx]) : parseFloat(defaultBudget) || 500.0;
+      const parsedAdGroupDefaultBid = adGroupBidIdx >= 0 ? Number.parseFloat(cols[adGroupBidIdx]) : Number.NaN;
+      const adGroupDefaultBid = Number.isFinite(parsedAdGroupDefaultBid) && parsedAdGroupDefaultBid >= 0.05
+        ? parsedAdGroupDefaultBid
+        : undefined;
       
       let campaignPreference: 'BOTH' | 'AUTO' | 'MANUAL' = defaultCampaignPref;
       if (campIdx >= 0 && cols[campIdx]) {
@@ -254,6 +260,7 @@ export const SkuUploadModal: React.FC<SkuUploadModalProps> = ({
         characterFranchise: franchise !== 'None' ? franchise : undefined,
         parsedSize,
         dailyBudget,
+        adGroupDefaultBid,
         campaignPreference,
         currentAsin,
       };
@@ -464,7 +471,7 @@ export const SkuUploadModal: React.FC<SkuUploadModalProps> = ({
                   Click to select Excel (.xlsx) or CSV file or drag and drop here
                 </h3>
                 <p className="text-xs text-slate-400 max-w-xl mx-auto">
-                  Supports <strong>.xlsx</strong> and <strong>.csv</strong> files with columns: SKU, Campaign_Type, Product_Type, Season, Franchise_Collab, Character, Daily_Budget.
+                  Supports <strong>.xlsx</strong> and <strong>.csv</strong> files with columns: SKU, Campaign_Type, Product_Type, Season, Franchise_Collab, Character, Daily_Budget, Ad_Group_Default_Bid (optional).
                 </p>
 
                 {/* Download Template Buttons with Dropdowns */}
