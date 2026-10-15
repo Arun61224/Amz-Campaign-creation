@@ -13,6 +13,7 @@ export const DEFAULT_STRATEGY: StrategySettings = {
   currencySymbol: '₹',
   campaignMode: 'BOTH',
   dailyBudget: 500.0,
+  adGroupDefaultBid: 5.0,
   biddingStrategy: 'Dynamic bids - down only',
   autoBids: {
     closeMatch: 16.0,
