@@ -64,6 +64,7 @@ export interface ProductSKU {
   targetProductGroup?: string; // e.g. "Winter Wear"
   basePrice?: number; // In INR (₹)
   dailyBudget?: number; // In INR (₹)
+  adGroupDefaultBid?: number; // Optional per-SKU Ad Group Default Bid override in INR (₹)
   campaignPreference?: 'AUTO' | 'MANUAL' | 'BOTH';
 }
 
@@ -142,7 +143,7 @@ export interface StrategySettings {
   // Campaign Mode: Auto, Manual, or Both Dual Strategy
   campaignMode: CampaignMode;
   dailyBudget: number; // In INR (₹), default ₹500.00
-  adGroupDefaultBid: number; // Shared Ad Group Default Bid in INR (₹)
+  adGroupDefaultBid: number; // Shared Ad Group Default Bid for Auto and Manual groups (INR ₹)
   biddingStrategy: 'Dynamic bids - down only' | 'Dynamic bids - up and down' | 'Fixed bids';
   
   // Auto Campaign Default Bids (INR ₹)
