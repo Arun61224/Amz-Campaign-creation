@@ -44,8 +44,7 @@ export const CampaignsSummaryView: React.FC<CampaignsSummaryViewProps> = ({
           No SKUs Loaded Yet
         </h3>
         <p className={`text-xs max-w-lg mx-auto mb-5 leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-          Upload or paste your inventory SKUs below. The studio will automatically build structured <strong>Auto Campaigns</strong>, <strong>Size-Specific Ad Groups</strong>, and ready-to-upload <strong>Amazon Bulk Files (.csv)</strong> in INR (₹).
-        </p>
+         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-3">
           <button
