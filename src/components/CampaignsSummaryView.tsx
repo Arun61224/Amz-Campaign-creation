@@ -44,7 +44,8 @@ export const CampaignsSummaryView: React.FC<CampaignsSummaryViewProps> = ({
           No SKUs Loaded Yet
         </h3>
         <p className={`text-xs max-w-lg mx-auto mb-5 leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-         </p>
+          Upload or paste your inventory SKUs below. The studio will automatically build structured <strong>Auto Campaigns</strong>, <strong>Size-Specific Ad Groups</strong>, and ready-to-upload <strong>Amazon Bulk Files (.csv)</strong> in INR (₹).
+        </p>
 
         <div className="flex flex-wrap items-center justify-center gap-3">
           <button
@@ -204,6 +205,13 @@ export const CampaignsSummaryView: React.FC<CampaignsSummaryViewProps> = ({
                   {camp.keywordsOrTargetsCount}
                 </span>
               </div>
+            </div>
+
+            <div className={`text-[11px] flex items-center justify-between mb-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+              <span>Ad Group Default Bid:</span>
+              <strong className={`font-mono ${isDark ? 'text-emerald-300' : 'text-emerald-700'}`}>
+                ₹{strategy.adGroupDefaultBid.toFixed(2)} INR
+              </strong>
             </div>
 
             <div className={`text-[11px] flex items-center justify-between ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
