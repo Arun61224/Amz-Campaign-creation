@@ -117,7 +117,7 @@ export function generateAmazonBulkCsv(
         '',
         '',
         '',
-        strategy.adGroupDefaultBid.toFixed(2),
+        (skus[0].adGroupDefaultBid ?? strategy.adGroupDefaultBid).toFixed(2),
         '',
         '',
         '',
@@ -242,6 +242,9 @@ export function generateAmazonBulkCsv(
     // Manual Ad Group Rows
     manualAdGroupsSet.forEach((composite) => {
       const [campName, agName] = composite.split(':::');
+      const matchingSku = catalog.find((prod) => deriveAdGroupNameFromSku(prod.sku) === agName);
+      const designOverrideSku = matchingSku ? undefined : catalog.find((prod) => campName.endsWith(`_${prod.designId}`) && prod.adGroupDefaultBid != null);
+      const adGroupDefaultBid = matchingSku?.adGroupDefaultBid ?? designOverrideSku?.adGroupDefaultBid ?? strategy.adGroupDefaultBid;
       rows.push([
         'Sponsored Products',
         'Ad Group',
@@ -261,7 +264,7 @@ export function generateAmazonBulkCsv(
         '',
         '',
         '',
-        strategy.defaultBids.PHRASE.toFixed(2),
+        adGroupDefaultBid.toFixed(2),
         '',
         '',
         '',
