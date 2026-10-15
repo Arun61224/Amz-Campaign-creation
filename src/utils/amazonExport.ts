@@ -428,7 +428,7 @@ export function generateCampaignSummaries(
         id: `camp-auto-${designId}`,
         campaignName: `${strategy.campaignPrefix}_AUTO_${designId}`,
         targetingType: 'AUTO',
-        dailyBudget: skus[0].dailyBudget || strategy.dailyBudget,
+        dailyBudget: strategy.dailyBudget,
         biddingStrategy: strategy.biddingStrategy,
         adGroupsCount: 1,
         skusCount: skus.length,
