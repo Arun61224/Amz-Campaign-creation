@@ -117,7 +117,7 @@ export function generateAmazonBulkCsv(
         '',
         '',
         '',
-        strategy.autoBids.closeMatch.toFixed(2),
+        strategy.adGroupDefaultBid.toFixed(2),
         '',
         '',
         '',
